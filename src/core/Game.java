@@ -22,6 +22,9 @@ public class Game extends BasicGameState
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException 
 	{
 		gc.setShowFPS(true);
+		Graphics draw = new Graphics();
+		Crosshair crosshair = new Crosshair();
+		crosshair.followCursor();
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException 
