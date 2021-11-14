@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ibxm">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/libs/ibxm" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -18,65 +18,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
-      <library name="lwjgl.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/lwjgl.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <NATIVE>
-          <root url="file://project-hivemind-camera/libs/natives" />
-        </NATIVE>
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="slick.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/slick.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <NATIVE>
-          <root url="file://project-hivemind-camera/libs/natives" />
-        </NATIVE>
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="jinput.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/jinput.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <NATIVE>
-          <root url="file://project-hivemind-camera/libs/natives" />
-        </NATIVE>
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="jogg-0.0.7.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/jogg-0.0.7.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <NATIVE>
-          <root url="file://project-hivemind-camera/libs/natives" />
-        </NATIVE>
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="jorbis-0.0.15.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/jorbis-0.0.15.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <NATIVE>
-          <root url="file://project-hivemind-camera/libs/natives" />
-        </NATIVE>
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="ibxm" level="project" />
+    <orderEntry type="library" name="joml-1.10" level="project" />
+    <orderEntry type="library" name="lwjgl" level="project" />
+    <orderEntry type="library" name="natives-windows" level="project" />
+    <orderEntry type="library" name="slick" level="project" />
   </component>
 </module>
