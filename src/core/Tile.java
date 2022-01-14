@@ -73,6 +73,7 @@ public class Tile
 		terrain = t;
 		t.setTile(this);
 	}
+
 	
 		
 }

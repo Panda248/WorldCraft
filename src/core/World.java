@@ -2,11 +2,9 @@ package core;
 
 import org.newdawn.slick.Graphics;
 
-import entity.Entity;
-import entity.Sheep;
+import entity.*;
 import noise.PerlinNoise;
-import terrain.Grass;
-import terrain.Water;
+import terrain.*;
 
 public class World 
 {
@@ -95,15 +93,49 @@ public class World
 	
 	public void generateTileNoise(int x, int y)
 	{
-		float SCALE = .05f;
+		float SCALE = .03f;
 		float noise = (float) PerlinNoise.noise(x*SCALE, y*SCALE);
-		if(noise > 0.6f)
-		{
-			tiles[x][y].setTerrain(new Grass(noise));
-		}			
-		else
+		if(noise < 0.4f)
 		{
 			tiles[x][y].setTerrain(new Water(noise));
+
+		}			
+		else if(noise < 0.6f)
+		{
+			tiles[x][y].setTerrain(new Grass(noise));
+		}
+		else
+		{
+			if(noise < 0.75f)
+			{
+				tiles[x][y].setTerrain(new Mountain(noise));
+			}
+			else
+			{
+				tiles[x][y].setTerrain(new Snow((tiles[x][y].terrain.getTerrain().equalsIgnoreCase("Mountain")?tiles[x][y].terrain.getElevation():0.6f)));
+			}
+		}
+		noise = (float) PerlinNoise.noise(x * (SCALE*3), y * (SCALE*3));
+		if(noise < 0.3f)
+		{
+			tiles[x][y].setTerrain(new Cavern());
+		}
+		noise = (float) PerlinNoise.noise(x * SCALE/2, y * SCALE/2);
+		if(noise < 0.4)
+		{
+			if(tiles[x][y].terrain.getTerrain().equalsIgnoreCase("Water"))
+			{
+				System.out.println("ICE");
+				tiles[x][y].setTerrain(new Ice());
+			}
+			else
+			{
+				if(!tiles[x][y].terrain.getTerrain().equalsIgnoreCase("cavern"))
+				{
+					tiles[x][y].setTerrain(new Snow());
+				}
+			}
+
 		}
 	}
 

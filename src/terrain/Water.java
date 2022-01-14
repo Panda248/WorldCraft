@@ -7,13 +7,11 @@ import core.World;
 
 public class Water extends Terrain
 {
-	private final float MAX_DEPTH = 100;
 	private float depth;
-	public Water(float distance)
+	public Water(float depth)
 	{
-		depth = (float) MAX_DEPTH * distance;
+		this.depth = depth;
 	}
-
 	public void update() 
 	{
 
@@ -21,10 +19,8 @@ public class Water extends Terrain
 
 	public void render(Graphics g)
 	{
-		int red = (int) ((1 - depth)*50);
-		int blue = (int) (depth * 150) + 50;
-		int green = (int) ((1 - depth)*50);
-		g.setColor(new Color(red, green, blue));
+
+		g.setColor(new Color(depth/2, depth/2, 1.7f*depth));
 		g.fillRect(tile.getX() * World.TILE_SIZE, tile.getY() * World.TILE_SIZE, World.TILE_SIZE, World.TILE_SIZE);
 	}
 

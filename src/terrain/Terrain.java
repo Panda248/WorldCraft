@@ -12,7 +12,10 @@ abstract public class Terrain
 	{
 		
 	}
-	
+	public String getTerrain()
+	{
+		return this.getClass().getSimpleName();
+	}
 	public void setTile(Tile t)
 	{
 		tile = t;
@@ -20,5 +23,6 @@ abstract public class Terrain
 		
 	abstract public void update();
 	abstract public void render(Graphics g);
-	
+
+	public abstract float getElevation();
 }
