@@ -17,6 +17,11 @@ public class Water extends Terrain
 
 	}
 
+	public float getElevation()
+	{
+		return 0;
+	}
+
 	public void render(Graphics g)
 	{
 

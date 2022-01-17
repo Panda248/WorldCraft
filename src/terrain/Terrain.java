@@ -24,5 +24,8 @@ abstract public class Terrain
 	abstract public void update();
 	abstract public void render(Graphics g);
 
-	public abstract float getElevation();
+	public float getElevation()
+	{
+		return 0;
+	}
 }

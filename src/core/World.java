@@ -93,9 +93,9 @@ public class World
 	
 	public void generateTileNoise(int x, int y)
 	{
-		float SCALE = .03f;
+		float SCALE = .05f;
 		float noise = (float) PerlinNoise.noise(x*SCALE, y*SCALE);
-		if(noise < 0.4f)
+		if(noise < 0.3f)
 		{
 			tiles[x][y].setTerrain(new Water(noise));
 
@@ -112,7 +112,7 @@ public class World
 			}
 			else
 			{
-				tiles[x][y].setTerrain(new Snow((tiles[x][y].terrain.getTerrain().equalsIgnoreCase("Mountain")?tiles[x][y].terrain.getElevation():0.6f)));
+				tiles[x][y].setTerrain(new Snow(4));
 			}
 		}
 		noise = (float) PerlinNoise.noise(x * (SCALE*3), y * (SCALE*3));
@@ -130,10 +130,10 @@ public class World
 			}
 			else
 			{
-				if(!tiles[x][y].terrain.getTerrain().equalsIgnoreCase("cavern"))
-				{
-					tiles[x][y].setTerrain(new Snow());
-				}
+				//if(!tiles[x][y].terrain.getTerrain().equalsIgnoreCase("cavern"))
+				//{
+					//tiles[x][y].setTerrain(new Snow());
+				//}
 			}
 
 		}

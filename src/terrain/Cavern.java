@@ -10,6 +10,10 @@ public class Cavern extends Terrain
     public void update() {
 
     }
+    public float getElevation()
+    {
+        return -5;
+    }
 
     public void render(Graphics g) {
         g.setColor(new Color(25,25,25));
