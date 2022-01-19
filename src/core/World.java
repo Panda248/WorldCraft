@@ -93,9 +93,9 @@ public class World
 	
 	public void generateTileNoise(int x, int y)
 	{
-		float SCALE = .05f;
+		float SCALE = .04f;
 		float noise = (float) PerlinNoise.noise(x*SCALE, y*SCALE);
-		if(noise < 0.3f)
+		if(noise < 0.4f)
 		{
 			tiles[x][y].setTerrain(new Water(noise));
 
@@ -106,36 +106,32 @@ public class World
 		}
 		else
 		{
-			if(noise < 0.75f)
+			if(noise < 0.7f)
 			{
 				tiles[x][y].setTerrain(new Mountain(noise));
 			}
 			else
 			{
-				tiles[x][y].setTerrain(new Snow(4));
+				tiles[x][y].setTerrain(new Snow(noise*2));
 			}
 		}
-		noise = (float) PerlinNoise.noise(x * (SCALE*3), y * (SCALE*3));
-		if(noise < 0.3f)
-		{
-			tiles[x][y].setTerrain(new Cavern());
-		}
+
 		noise = (float) PerlinNoise.noise(x * SCALE/2, y * SCALE/2);
 		if(noise < 0.4)
 		{
 			if(tiles[x][y].terrain.getTerrain().equalsIgnoreCase("Water"))
 			{
-				System.out.println("ICE");
 				tiles[x][y].setTerrain(new Ice());
 			}
 			else
 			{
-				//if(!tiles[x][y].terrain.getTerrain().equalsIgnoreCase("cavern"))
-				//{
-					//tiles[x][y].setTerrain(new Snow());
-				//}
-			}
-
+				tiles[x][y].setTerrain(new Snow(tiles[x][y].terrain.getElevation()));
+				}
+		}
+		noise = (float) PerlinNoise.noise(x * (SCALE*3), y * (SCALE*3));
+		if(noise < 0.3f)
+		{
+				tiles[x][y].setTerrain(new Cavern());
 		}
 	}
 

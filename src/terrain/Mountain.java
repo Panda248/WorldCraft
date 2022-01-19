@@ -8,7 +8,7 @@ public class Mountain extends Terrain
 {
 
 
-	private static float elevation;
+	private float elevation;
 	public float getElevation()
 	{
 		return elevation;
@@ -24,13 +24,11 @@ public class Mountain extends Terrain
 
 	public void render(Graphics g)
 	{
-		int r = (int) (elevation * 100);
+		int r = (int) (elevation * 225);
 
-		int gr = (int) (elevation * 100);
+		int gr = (int) (elevation * 150);
 
-		int b = (int) (elevation * 100);
-
-		g.setColor(new Color(r, gr, b));
+		g.setColor(new Color(r, gr, 50));
 		g.fillRect(tile.getX() * World.TILE_SIZE, tile.getY() * World.TILE_SIZE, World.TILE_SIZE, World.TILE_SIZE);
 	}
 

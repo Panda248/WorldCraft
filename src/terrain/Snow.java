@@ -21,7 +21,13 @@ public class Snow extends Terrain
     }
     public void render(Graphics g)
     {
-        g.setColor(new Color(height * 100, height * 100, height * 100));
+        int r = (int) (height * 225);
+
+        int gr = (int) (height * 225);
+
+        int b = (int) (height * 225);
+
+        g.setColor(new Color(r, gr, b));
         g.fillRect(tile.getX() * World.TILE_SIZE, tile.getY() * World.TILE_SIZE, World.TILE_SIZE, World.TILE_SIZE);
     }
 }

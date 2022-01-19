@@ -26,6 +26,6 @@ abstract public class Terrain
 
 	public float getElevation()
 	{
-		return 0;
+		return 0.9f;
 	}
 }
