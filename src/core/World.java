@@ -99,7 +99,11 @@ public class World
 		{
 			tiles[x][y].setTerrain(new Water(noise));
 
-		}			
+		}
+		else if(noise < 0.45f)
+		{
+			tiles[x][y].setTerrain((new Sand()));
+		}
 		else if(noise < 0.6f)
 		{
 			tiles[x][y].setTerrain(new Grass(noise));
@@ -128,8 +132,8 @@ public class World
 				tiles[x][y].setTerrain(new Snow(tiles[x][y].terrain.getElevation()));
 				}
 		}
-		noise = (float) PerlinNoise.noise(x * (SCALE*3), y * (SCALE*3));
-		if(noise < 0.3f)
+		noise = (float) PerlinNoise.noise(x * (SCALE*3.5f), y * (SCALE*3.5f));
+		if(noise > 0.73f)
 		{
 				tiles[x][y].setTerrain(new Cavern());
 		}
