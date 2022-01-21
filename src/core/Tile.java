@@ -73,7 +73,8 @@ public class Tile
 		terrain = t;
 		t.setTile(this);
 	}
-
-	
-		
+	public Terrain getTerrain()
+	{
+		return this.terrain;
+	}
 }

@@ -11,9 +11,11 @@ public class World
 	/****************************** DATA ******************************/
 
 	public static int TILE_SIZE = 5;
-	public static int NUM_SHEEP = 0;
+	public static int NUM_SHEEP = 100;
+	public static int time = 0;
+	private final int TICK_FREQUENCY = 5;
 
-	private Tile[][] tiles;
+	private static Tile[][] tiles;
 	
 	/****************************** CORE METHODS ******************************/
 
@@ -25,7 +27,7 @@ public class World
 	
 	public void update()
 	{
-		// Update each tile
+		time++;
 		for(int i = 0; i < getTilesHorizontal(); i++)
 		{
 			for(int j = 0; j < getTilesVertical(); j++)
@@ -50,16 +52,24 @@ public class World
 	/****************************** ACCESSORS ******************************/
 
 	
-	public int getTilesHorizontal()
+	public static int getTilesHorizontal()
 	{
 		return Main.getScreenWidth() / TILE_SIZE;
 	}
 	
-	public int getTilesVertical()
+	public static int getTilesVertical()
 	{
 		return Main.getScreenHeight() / TILE_SIZE;
 	}
-	
+
+	public static Tile getTile(int x, int y)
+	{
+		return tiles[x][y];
+	}
+	public static int getTime()
+	{
+		return time;
+	}
 	/****************************** MUTATORS ******************************/
 		
 	public void generateWorld()
@@ -154,7 +164,7 @@ public class World
 		int rY = (int) (Math.random() * getTilesVertical());
 		
 		// If it is occupied, try again
-		if(tiles[rX][rY].hasEntity())
+		if(tiles[rX][rY].hasEntity() || !e.isValidTerrain(tiles[rX][rY].getTerrain()))
 		{
 			addEntityRandomly(e);
 		}
