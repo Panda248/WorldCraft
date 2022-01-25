@@ -13,7 +13,7 @@ public class World
 	public static int TILE_SIZE = 5;
 	public static int NUM_SHEEP = 100;
 	public static int time = 0;
-	private final int TICK_FREQUENCY = 5;
+	private final int TICK_FREQUENCY = 1;
 
 	private static Tile[][] tiles;
 	
@@ -28,11 +28,14 @@ public class World
 	public void update()
 	{
 		time++;
-		for(int i = 0; i < getTilesHorizontal(); i++)
+		if(time % TICK_FREQUENCY == 0)
 		{
-			for(int j = 0; j < getTilesVertical(); j++)
+			for(int i = 0; i < getTilesHorizontal(); i++)
 			{
-				tiles[i][j].update();
+				for(int j = 0; j < getTilesVertical(); j++)
+				{
+					tiles[i][j].update();
+				}
 			}
 		}
 	}

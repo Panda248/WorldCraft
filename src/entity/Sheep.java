@@ -1,11 +1,13 @@
 package entity;
 
+import core.Main;
 import core.Tile;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import core.World;
 import terrain.Grass;
+import terrain.Snow;
 import terrain.Terrain;
 
 public class Sheep extends Entity
@@ -14,7 +16,7 @@ public class Sheep extends Entity
 
 	public boolean isValidTerrain(Terrain t)
 	{
-		return t instanceof  Grass;
+		return t instanceof  Grass || t instanceof Snow;
 	}
 
 	public void update() 
@@ -37,39 +39,38 @@ public class Sheep extends Entity
 		int y = tile.getY();
 		double r = Math.random();
 
-
-		try {
-			if (r < .25 && x > 0)//West
-			{
-				Tile destination = World.getTile(x - 1, y);
-				if (canEnter(destination)) {
-					destination.setEntity(this);
-				}
-			}
-			if (r < .75 && x > 5)//East
-			{
-				Tile destination = World.getTile(x + 1, y);
-				if (canEnter(destination)) {
-					destination.setEntity(this);
-				}
-			}
-			if (r < .5 && x > 0.25 && World.getTile(x, y - 1) != null)//North
-			{
-				Tile destination = World.getTile(x, y - 1);
-				if (canEnter(destination)) {
-					destination.setEntity(this);
-				}
-			}
-			if (x > 0.75)//South
-			{
-				Tile destination = World.getTile(x, y + 1);
-				if (canEnter(destination)) {
-					destination.setEntity(this);
-				}
-			}
-		} catch(ArrayIndexOutOfBoundsException e)
+		if (r < .25 && x > 0)//West
 		{
+			Tile destination = World.getTile(x - 1, y);
+			if (canEnter(destination)) {
+				destination.setEntity(this);
+				return;
+			}
 
+		}
+		if(r < 0.5 && x < World.getTilesHorizontal() - 1) //east
+		{
+			Tile destination = World.getTile(x + 1, y);
+			if (canEnter(destination)) {
+				destination.setEntity(this);
+				return;
+			}
+		}
+		if(r < 0.75 && y > 0) //north
+		{
+			Tile destination = World.getTile(x, y - 1);
+			if (canEnter(destination)) {
+				destination.setEntity(this);
+				return;
+			}
+		}
+		if(y < World.getTilesVertical() - 1)//south
+		{
+			Tile destination = World.getTile(x, y+ 1);
+			if (canEnter(destination)) {
+				destination.setEntity(this);
+				return;
+			}
 		}
 	}
 }
