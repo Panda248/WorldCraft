@@ -179,8 +179,18 @@ public class World
 		}
 			
 	}
-	
-	
-	
-
+	public int getSheepAmt() {
+		int temp = 0;
+		for (int i = 0; i < getTilesHorizontal(); i++)
+		{
+			for (int j = 0; j < getTilesVertical(); j++)
+			{
+				if (tiles[i][j].hasEntity())
+				{
+					temp++;
+				}
+			}
+		}
+		return temp;
+	}
 }

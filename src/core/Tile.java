@@ -67,12 +67,18 @@ public class Tile
 		entity = e;
 		e.setTile(this);
 	}
-	
+
+	public void clearEntity()
+	{
+		entity = null;
+	}
+
 	public void setTerrain(Terrain t)
 	{
 		terrain = t;
 		t.setTile(this);
 	}
+
 	public Terrain getTerrain()
 	{
 		return this.terrain;

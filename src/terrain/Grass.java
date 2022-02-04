@@ -8,10 +8,20 @@ import core.World;
 public class Grass extends Terrain
 {
 	final private float HIGHEST_GRASS = 100;
-	final private float HIGHEST_GROWTH_RATE = 0.6f;
+	final private float HIGHEST_GROWTH_RATE = 0.2f;
 	private float curGrass; //units of grass current tile has
 	private float maxGrass;
 	private float growthRate;
+
+	public float getGrass()
+	{
+		return curGrass;
+	}
+
+	public void removeGrass(int amount)
+	{
+		curGrass -= amount;
+	}
 
 	public float percentGrass()
 	{
