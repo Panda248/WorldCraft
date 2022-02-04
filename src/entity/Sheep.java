@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 
 import core.World;
 import terrain.Grass;
+import terrain.Sand;
 import terrain.Snow;
 import terrain.Terrain;
 
@@ -16,9 +17,10 @@ public class Sheep extends Entity
 	private int food = 10;
 	private final int MAX_FOOD = 10;
 	private final int EAT_VALUE = 20;
+	private final int REPRODUCTION_REQ = 10;
 	public boolean isValidTerrain(Terrain t)
 	{
-		return t instanceof  Grass || t instanceof Snow;
+		return t instanceof  Grass || (t instanceof Snow || t instanceof Sand);
 	}
 
 	public void update() 
@@ -103,7 +105,7 @@ public class Sheep extends Entity
 		int x = tile.getX();
 		int y = tile.getY();
 
-		if (food > 10) {
+		if (food > REPRODUCTION_REQ) {
 			if (x > 0) {
 				Tile babyTile = World.getTile(x - 1, y);
 				babyTile.setEntity(new Sheep());
