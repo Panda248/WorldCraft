@@ -37,7 +37,6 @@ public class Wolf extends Entity
         int x = tile.getX();
         int y = tile.getY();
         double r = Math.random();
-
         if (r < .25 && x > 0)//West
         {
             destination = World.getTile(x - 1, y);
@@ -91,14 +90,17 @@ public class Wolf extends Entity
             }
         }
     }
-    public void hunt()
+    public boolean hunt(int x, int y)
     {
-        ArrayList<Tile> fov = new ArrayList<Tile>();
+        float[][] fov = new float[5][5];
         for(int i = -4; i < 5; i++)
         {
             for(int j = -4; j < 5; j++)
             {
-                fov.add(World.getTile(this.tile.getX() + i, this.tile.getY() + j));
+                if(World.getTile(x + j, y + i).getEntity() instanceof Sheep)
+                {
+                    fov[i+4][j+4] = i + j*0.1f;
+                }
             }
         }
 
