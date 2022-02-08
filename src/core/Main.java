@@ -10,7 +10,7 @@ public class Main extends StateBasedGame
 {
 	public final static int FRAMES_PER_SECOND = 60;
 	private static AppGameContainer appgc;
-	
+	public static boolean debug;
     public static final int GAME_ID  = 0;
     
     private BasicGameState game;  
@@ -42,6 +42,7 @@ public class Main extends StateBasedGame
 	{
 		try 
 		{
+			debug = false;
 			appgc = new AppGameContainer(new Main("Worldcraft"));
 			System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
 		

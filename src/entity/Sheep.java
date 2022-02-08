@@ -15,12 +15,16 @@ public class Sheep extends Entity
 {
 	protected int lastUpdateTime = 0;
 	private int food = 10;
-	private final int MAX_FOOD = 10;
+	private final int MAX_FOOD = 50;
 	private final int EAT_VALUE = 20;
 	private final int REPRODUCTION_REQ = 10;
 	public boolean isValidTerrain(Terrain t)
 	{
 		return t instanceof  Grass || (t instanceof Snow || t instanceof Sand);
+	}
+	public int getFood()
+	{
+		return this.food;
 	}
 
 	public void update() 
@@ -42,46 +46,30 @@ public class Sheep extends Entity
 	}
 	public void move()
 	{
+		Tile destination = this.tile;
 		int x = tile.getX();
 		int y = tile.getY();
 		double r = Math.random();
 
 		if (r < .25 && x > 0)//West
 		{
-			Tile destination = World.getTile(x - 1, y);
-			if (canEnter(destination)) {
-				tile.clearEntity();
-				destination.setEntity(this);
-				return;
-			}
-
+			destination = World.getTile(x - 1, y);
 		}
-		if(r < 0.5 && x < World.getTilesHorizontal() - 1) //east
+		if((r >= 0.25 && r < 0.5) && x < World.getTilesHorizontal() - 1) //east
 		{
-			Tile destination = World.getTile(x + 1, y);
-			if (canEnter(destination)) {
-				tile.clearEntity();
-				destination.setEntity(this);
-				return;
-			}
+			destination = World.getTile(x + 1, y);
 		}
-		if(r < 0.75 && y > 0) //north
+		if((r >=0.5 && r < 0.75) && y > 0) //north
 		{
-			Tile destination = World.getTile(x, y - 1);
-			if (canEnter(destination)) {
-				tile.clearEntity();
-				destination.setEntity(this);
-				return;
-			}
+			destination = World.getTile(x, y - 1);
 		}
-		if(y < World.getTilesVertical() - 1)//south
+		if(r >=0.75 && y < World.getTilesVertical() - 1)//south
 		{
-			Tile destination = World.getTile(x, y+ 1);
-			if (canEnter(destination)) {
-				tile.clearEntity();
-				destination.setEntity(this);
-				return;
-			}
+			destination = World.getTile(x, y+ 1);
+		}
+		if (canEnter(destination)) {
+			tile.clearEntity();
+			destination.setEntity(this);
 		}
 	}
 
@@ -123,5 +111,9 @@ public class Sheep extends Entity
 		{
 			tile.clearEntity();
 		}
+	}
+	public void escape(float x, float y)
+	{
+
 	}
 }

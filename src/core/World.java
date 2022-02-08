@@ -12,6 +12,7 @@ public class World
 
 	public static int TILE_SIZE = 5;
 	public static int NUM_SHEEP = 100;
+	public static int NUM_WOLVES = 30;
 	public static int time = 0;
 	private final int TICK_FREQUENCY = 1;
 
@@ -158,6 +159,10 @@ public class World
 		{
 			addEntityRandomly(new Sheep());
 		}
+		for(int i = 0; i < NUM_WOLVES; i++)
+		{
+			addEntityRandomly(new Wolf());
+		}
 	}
 		
 	public void addEntityRandomly(Entity e)
@@ -185,7 +190,22 @@ public class World
 		{
 			for (int j = 0; j < getTilesVertical(); j++)
 			{
-				if (tiles[i][j].hasEntity())
+				if (tiles[i][j].getEntity() != null && tiles[i][j].getEntity() instanceof Sheep)
+				{
+					temp++;
+				}
+			}
+		}
+		return temp;
+	}
+	public int getWolvesAmt()
+	{
+		int temp = 0;
+		for (int i = 0; i < getTilesHorizontal(); i++)
+		{
+			for (int j = 0; j < getTilesVertical(); j++)
+			{
+				if (tiles[i][j].getEntity() != null && tiles[i][j].getEntity() instanceof Wolf)
 				{
 					temp++;
 				}
