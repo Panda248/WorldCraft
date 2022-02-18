@@ -11,8 +11,10 @@ public class World
 	/****************************** DATA ******************************/
 
 	public static int TILE_SIZE = 5;
-	public static int NUM_SHEEP = 100;
-	public static int NUM_WOLVES = 30;
+	public static int NUM_SHEEP = 100; //Sheep: Eats grass and reproduces when grass eaten reaches a threshold
+	public static int NUM_WOLVES = 100;//Wolves: Eats Sheep and reproduces when sheep eaten reaches a threshold
+	public static int NUM_SWOLVES = 100;//Smart Wolves/S-Wolves: Pathfinds (lmao not really) to sheep to eat. Same as normal wolf.
+	public static int NUM_GOLEMS = 5;//Golems: Breaks and places rocks.
 	public static int time = 0;
 	private final int TICK_FREQUENCY = 1;
 
@@ -68,6 +70,10 @@ public class World
 
 	public static Tile getTile(int x, int y)
 	{
+		if((x < 0 || y < 0)||(x >= World.getTilesHorizontal() || y >= World.getTilesVertical()))
+		{
+			return null;
+		}
 		return tiles[x][y];
 	}
 	public static int getTime()
@@ -163,6 +169,10 @@ public class World
 		{
 			addEntityRandomly(new Wolf());
 		}
+		for(int i = 0; i < NUM_SWOLVES; i++)
+		{
+			addEntityRandomly(new SmartWolf());
+		}
 	}
 		
 	public void addEntityRandomly(Entity e)
@@ -206,6 +216,20 @@ public class World
 			for (int j = 0; j < getTilesVertical(); j++)
 			{
 				if (tiles[i][j].getEntity() != null && tiles[i][j].getEntity() instanceof Wolf)
+				{
+					temp++;
+				}
+			}
+		}
+		return temp;
+	} public int getSWolvesAmt()
+	{
+		int temp = 0;
+		for (int i = 0; i < getTilesHorizontal(); i++)
+		{
+			for (int j = 0; j < getTilesVertical(); j++)
+			{
+				if (tiles[i][j].getEntity() != null && tiles[i][j].getEntity() instanceof SmartWolf)
 				{
 					temp++;
 				}

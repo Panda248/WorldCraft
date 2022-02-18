@@ -7,24 +7,29 @@ import org.newdawn.slick.Graphics;
 import terrain.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Wolf extends Entity
 {
     protected int lastUpdateTime = 0;
-    private Entity targetSheep;
-    private int food = 10;
-    private final int MAX_FOOD = 10;
-    private final int REPRODUCTION_REQ = 3;
+    private float food = 50;
+    private final int MAX_FOOD = 100;
+    private final int REPRODUCTION_REQ = 50;
     @Override
     public boolean isValidTerrain(Terrain t) {
-        return (t instanceof Grass || t instanceof Sand) ||(t instanceof Snow);
+        return (t instanceof Grass || t instanceof Sand) ||(t instanceof Snow || t instanceof Ice);
     }
 
     @Override
     public void update() {
-        //hunger();
-        hunt(tile.getX(), tile.getY());
-        reproduce();
+        if(lastUpdateTime != World.getTime())
+        {
+            eat(this.tile);
+            hunger();
+            reproduce();
+            move();
+        }
+        lastUpdateTime = World.getTime();
     }
 
     @Override
@@ -64,7 +69,7 @@ public class Wolf extends Entity
     {
         if(food > 0)
         {
-            food--;
+            food-=0.25;
         }
         else
         {
@@ -73,10 +78,18 @@ public class Wolf extends Entity
     }
     public void eat(Tile tile)
     {
-        if(tile.getEntity() instanceof Sheep)
+        for(int i = -2; i < 3; i ++)
         {
-            this.food += ((Sheep) tile.getEntity()).getFood()/10;
-            tile.clearEntity();
+            for(int j = -2; j < 3; j++)
+            {
+                if((World.getTile(tile.getX() + i, tile.getY() + j)) != null)
+                {
+                    if ((World.getTile(tile.getX() + i, tile.getY() + j)).getEntity() instanceof Sheep) {
+                        this.food += ((Sheep) World.getTile(tile.getX() + i, tile.getY() + j).getEntity()).getFood() / 2;
+                        World.getTile(tile.getX() + i, tile.getY() + j).clearEntity();
+                    }
+                }
+            }
         }
     }
     public void reproduce() {
@@ -87,50 +100,9 @@ public class Wolf extends Entity
             if (x > 0) {
                 Tile babyTile = World.getTile(x - 1, y);
                 babyTile.setEntity(new Sheep());
-                food -= 5;
+                food -= this.REPRODUCTION_REQ/2;
             }
         }
     }
-    private void hunt(int x, int y)
-    {
-        if(seeSheep(x, y))
-        {
-            chaseSheep(x ,y);
-        }
-        else
-        {
-            move();
-        }
 
-    }
-
-    private boolean seeSheep(int x, int y)
-    {
-        boolean result = false;
-        float targetJ = 10;
-        float targetI = 10;
-        for(int i = -4; i < 5; i++)
-        {
-            for(int j = -4; j < 5; j++)
-            {
-                if((x + j >= 0  && x + j < World.getTilesHorizontal() - 1) && (y + i >= 0 && y + i < World.getTilesVertical() - 1)) {
-                    if (World.getTile(x + j, y + i).getEntity() instanceof Sheep)
-                    {
-                        if (Math.abs(j) < targetJ && Math.abs(i) < targetI)
-                        {
-                            result = true;
-                            targetI = i;
-                            targetJ = j;
-                            this.targetSheep = World.getTile(x + j, y + i).getEntity();
-                        }
-                    }
-                }
-            }
-        }
-        return result;
-    }
-    private void chaseSheep(int x, int y)
-    {
-
-    }
 }

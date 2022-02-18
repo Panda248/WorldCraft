@@ -6,10 +6,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import core.World;
-import terrain.Grass;
-import terrain.Sand;
-import terrain.Snow;
-import terrain.Terrain;
+import terrain.*;
 
 public class Sheep extends Entity
 {
@@ -20,7 +17,7 @@ public class Sheep extends Entity
 	private final int REPRODUCTION_REQ = 10;
 	public boolean isValidTerrain(Terrain t)
 	{
-		return t instanceof  Grass || (t instanceof Snow || t instanceof Sand);
+		return (t instanceof  Grass || t instanceof Ice) || (t instanceof Snow || t instanceof Sand);
 	}
 	public int getFood()
 	{
@@ -94,11 +91,30 @@ public class Sheep extends Entity
 		int y = tile.getY();
 
 		if (food > REPRODUCTION_REQ) {
-			if (x > 0) {
-				Tile babyTile = World.getTile(x - 1, y);
-				babyTile.setEntity(new Sheep());
+			Tile destination = this.tile;
+			double r = Math.random();
+
+			if (r < .25 && x > 0)//West
+			{
+				destination = World.getTile(x - 1, y);
+			}
+			if((r >= 0.25 && r < 0.5) && x < World.getTilesHorizontal() - 1) //east
+			{
+				destination = World.getTile(x + 1, y);
+			}
+			if((r >=0.5 && r < 0.75) && y > 0) //north
+			{
+				destination = World.getTile(x, y - 1);
+			}
+			if(r >=0.75 && y < World.getTilesVertical() - 1)//south
+			{
+				destination = World.getTile(x, y+ 1);
+			}
+			if (canEnter(destination)) {
+				destination.setEntity(new Sheep());
 				food -= 5;
 			}
+
 		}
 	}
 	public void hunger()
