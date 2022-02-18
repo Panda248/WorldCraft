@@ -11,18 +11,19 @@ import java.util.ArrayList;
 public class Wolf extends Entity
 {
     protected int lastUpdateTime = 0;
+    private Entity targetSheep;
     private int food = 10;
     private final int MAX_FOOD = 10;
     private final int REPRODUCTION_REQ = 3;
     @Override
     public boolean isValidTerrain(Terrain t) {
-        return (t instanceof Grass || t instanceof Sand) ||(t instanceof Snow || t instanceof Mountain);
+        return (t instanceof Grass || t instanceof Sand) ||(t instanceof Snow);
     }
 
     @Override
     public void update() {
-        hunger();
-        move();
+        //hunger();
+        hunt(tile.getX(), tile.getY());
         reproduce();
     }
 
@@ -90,19 +91,46 @@ public class Wolf extends Entity
             }
         }
     }
-    public boolean hunt(int x, int y)
+    private void hunt(int x, int y)
     {
-        float[][] fov = new float[5][5];
+        if(seeSheep(x, y))
+        {
+            chaseSheep(x ,y);
+        }
+        else
+        {
+            move();
+        }
+
+    }
+
+    private boolean seeSheep(int x, int y)
+    {
+        boolean result = false;
+        float targetJ = 10;
+        float targetI = 10;
         for(int i = -4; i < 5; i++)
         {
             for(int j = -4; j < 5; j++)
             {
-                if(World.getTile(x + j, y + i).getEntity() instanceof Sheep)
-                {
-                    fov[i+4][j+4] = i + j*0.1f;
+                if((x + j >= 0  && x + j < World.getTilesHorizontal() - 1) && (y + i >= 0 && y + i < World.getTilesVertical() - 1)) {
+                    if (World.getTile(x + j, y + i).getEntity() instanceof Sheep)
+                    {
+                        if (Math.abs(j) < targetJ && Math.abs(i) < targetI)
+                        {
+                            result = true;
+                            targetI = i;
+                            targetJ = j;
+                            this.targetSheep = World.getTile(x + j, y + i).getEntity();
+                        }
+                    }
                 }
             }
         }
+        return result;
+    }
+    private void chaseSheep(int x, int y)
+    {
 
     }
 }

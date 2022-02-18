@@ -43,17 +43,20 @@ public class Game extends BasicGameState
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException 
 	{
 		world.render(g);
-		g.setColor(new Color(0, 0, 0, 100));
-		g.fillRect(Main.getScreenWidth() - 500, 0, 500, 300);
+		if(Main.debug)
+		{
+			g.setColor(new Color(0, 0, 0, 100));
+			g.fillRect(Main.getScreenWidth() - 500, 0, 500, 300);
 
-		graphPoints.forEach((GraphPoint p) -> {
-			p.x--;
-			g.setColor(new Color(2 * (300 - p.y), (int) (2 * p.y), 0, 255));
-			g.drawRect(p.x, p.y, 1, 300 - p.y);
-		});
-		g.setColor(Color.white);
-		g.drawString("Sheep: " + world.getSheepAmt(),Main.getScreenWidth() - 100, 0);
-		g.drawString("Wolves: " + world.getWolvesAmt(), Main.getScreenWidth() - 100, 20);
+			graphPoints.forEach((GraphPoint p) -> {
+				p.x--;
+				g.setColor(new Color(2 * (300 - p.y), (int) (2 * p.y), 0, 255));
+				g.drawRect(p.x, p.y, 1, 300 - p.y);
+			});
+			g.setColor(Color.white);
+			g.drawString("Sheep: " + world.getSheepAmt(), Main.getScreenWidth() - 100, 0);
+			g.drawString("Wolves: " + world.getWolvesAmt(), Main.getScreenWidth() - 100, 20);
+		}
 	}
 
 	public void keyPressed(int key, char c)
