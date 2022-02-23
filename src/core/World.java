@@ -14,7 +14,7 @@ public class World
 	public static int NUM_SHEEP = 100; //Sheep: Eats grass and reproduces when grass eaten reaches a threshold
 	public static int NUM_WOLVES = 100;//Wolves: Eats Sheep and reproduces when sheep eaten reaches a threshold
 	public static int NUM_SWOLVES = 100;//Smart Wolves/S-Wolves: Pathfinds (lmao not really) to sheep to eat. Same as normal wolf.
-	public static int NUM_GOLEMS = 5;//Golems: Breaks and places rocks.
+	public static int NUM_GOLEMS = 20;//Golems: Breaks and places rocks.
 	public static int time = 0;
 	private final int TICK_FREQUENCY = 1;
 
@@ -172,6 +172,10 @@ public class World
 		for(int i = 0; i < NUM_SWOLVES; i++)
 		{
 			addEntityRandomly(new SmartWolf());
+		}
+		for(int i = 0; i < NUM_GOLEMS; i++)
+		{
+			addEntityRandomly(new Golem());
 		}
 	}
 		

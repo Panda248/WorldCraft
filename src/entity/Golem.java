@@ -2,15 +2,16 @@ package entity;
 
 import core.Tile;
 import core.World;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import terrain.Terrain;
+import terrain.*;
 
-public class Golem extends Entity
+public class    Golem extends Entity
 {
     private int numrocks = 5;
     @Override
     public boolean isValidTerrain(Terrain t) {
-        return false;
+        return t instanceof Grass || t instanceof Stone || t instanceof Mountain || t instanceof Snow;
     }
 
     @Override
@@ -20,15 +21,17 @@ public class Golem extends Entity
         {
             smash();
         }
-        if(Math.random() > 0.5)
+        if(Math.random() > 0.5 && numrocks > 0)
         {
             place();
         }
     }
 
     @Override
-    public void render(Graphics g) {
-
+    public void render(Graphics g)
+    {
+        g.setColor(new Color(numrocks*10, numrocks*10, numrocks*30));
+        g.fillOval(tile.getX() * World.TILE_SIZE, tile.getY() * World.TILE_SIZE, World.TILE_SIZE, World.TILE_SIZE);
     }
     public void move(int x, int y)
     {
@@ -58,9 +61,15 @@ public class Golem extends Entity
     }
     public void smash()
     {
-
+        numrocks++;
+        float temp = this.tile.getTerrain().getElevation()-0.1f;
+        this.tile.setTerrain(new Stone(temp));
     }
     public void place()
-    {}
+    {
+        numrocks--;
+        float temp = this.tile.getTerrain().getElevation()+0.1f;
+        this.tile.setTerrain(new Stone(temp));
+    }
 
 }

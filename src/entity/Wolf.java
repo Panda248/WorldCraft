@@ -17,7 +17,7 @@ public class Wolf extends Entity
     private final int REPRODUCTION_REQ = 50;
     @Override
     public boolean isValidTerrain(Terrain t) {
-        return (t instanceof Grass || t instanceof Sand) ||(t instanceof Snow || t instanceof Ice);
+        return (t instanceof Grass || t instanceof Sand) ||(t instanceof Snow || t instanceof Ice || t instanceof Stone);
     }
 
     @Override

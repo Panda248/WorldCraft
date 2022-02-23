@@ -11,13 +11,13 @@ import terrain.*;
 public class Sheep extends Entity
 {
 	protected int lastUpdateTime = 0;
-	private int food = 10;
-	private final int MAX_FOOD = 50;
+	private int food = 100;
+	private final int MAX_FOOD = 200;
 	private final int EAT_VALUE = 20;
-	private final int REPRODUCTION_REQ = 10;
+	private final int REPRODUCTION_REQ = 100;
 	public boolean isValidTerrain(Terrain t)
 	{
-		return (t instanceof  Grass || t instanceof Ice) || (t instanceof Snow || t instanceof Sand);
+		return (t instanceof  Grass || t instanceof Ice) || (t instanceof Snow || t instanceof Sand || t instanceof Stone);
 	}
 	public int getFood()
 	{
